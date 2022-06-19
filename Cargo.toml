@@ -1,11 +1,11 @@
 [package]
 name = "tauri-plugin-localhost"
-version = "0.0.0"
+version = "0.1.0"
 authors = [ "Tauri Programme within The Commons Conservancy" ]
 description = ""
 edition = "2021"
 rust-version = "1.56"
-exclude = ["/examples"]
+exclude = [ "/examples" ]
 
 [dependencies]
 tauri = "1.0"
