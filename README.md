@@ -19,6 +19,7 @@ Please note, below in the dependencies you can also lock to a revision/tag in th
 [dependencies]
 tauri = "1.0.0"
 tauri-plugin-localhost = "0.1.0"
+portpicker = "0.1"
 ```
 
 Use in `src-tauri/src/main.rs`:
