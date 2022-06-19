@@ -41,11 +41,12 @@ fn main() {
         "main".to_string(),
         WindowUrl::External(format!("http://localhost:{}", port).parse().unwrap()),
       )
-      .title("Example")
+      .title("Localhost Example")
       .build()?;
       Ok(())
     })
-    .run();
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
