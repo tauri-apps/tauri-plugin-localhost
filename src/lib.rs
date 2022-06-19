@@ -62,17 +62,31 @@ impl Builder {
           let server =
             Server::http(&format!("localhost:{}", port)).expect("Unable to spawn server");
           for req in server.incoming_requests() {
-            if let Some(asset) = asset_resolver.get(req.url().into()) {
+            #[allow(unused_mut)]
+            if let Some(mut asset) = asset_resolver.get(req.url().into()) {
               let request = Request {
                 url: req.url().into(),
               };
               let mut response = Response {
                 headers: Default::default(),
               };
+
               response.add_header("Content-Type", asset.mime_type);
+              if let Some(csp) = asset.csp_header {
+                response
+                  .headers
+                  .insert("Content-Security-Policy".into(), csp);
+              }
 
               if let Some(on_request) = &on_request {
                 on_request(&request, &mut response);
+              }
+
+              #[cfg(target_os = "linux")]
+              if let Some(response_csp) = response.headers.get("Content-Security-Policy") {
+                let html = String::from_utf8_lossy(&asset.bytes);
+                let body = html.replacen(tauri::utils::html::CSP_TOKEN, response_csp, 1);
+                asset.bytes = body.as_bytes().to_vec();
               }
 
               let mut resp = HttpResponse::from_data(asset.bytes);
