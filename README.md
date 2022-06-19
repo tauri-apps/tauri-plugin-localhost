@@ -29,6 +29,7 @@ tag = "tauri-plugin-localhost-v0.1.0"
 Use in `src-tauri/src/main.rs`:
 
 ```rust
+
 use tauri::{window::WindowBuilder, WindowUrl};
 
 fn main() {
@@ -41,11 +42,12 @@ fn main() {
         "main".to_string(),
         WindowUrl::External(format!("http://localhost:{}", port).parse().unwrap()),
       )
-      .title("Example")
+      .title("Localhost Example")
       .build()?;
       Ok(())
     })
-    .run();
+    .run(tauri::generate_context!())
+    .expect("error while running tauri application");
 }
 ```
 
