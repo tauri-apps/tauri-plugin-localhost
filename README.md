@@ -17,13 +17,8 @@ Please note, below in the dependencies you can also lock to a revision/tag in th
 `src-tauri/Cargo.toml`
 ```yaml
 [dependencies]
-tauri = { version = "1.0.0" }
-portpicker = "0.1"
-
-[dependencies.tauri-plugin-localhost]
-git = "https://github.com/tauri-apps/tauri-plugin-localhost"
-tag = "tauri-plugin-localhost-v0.1.0"
-#branch = "main"
+tauri = "1.0.0"
+tauri-plugin-localhost = "0.1.0"
 ```
 
 Use in `src-tauri/src/main.rs`:
