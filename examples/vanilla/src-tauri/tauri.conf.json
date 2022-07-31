@@ -5,7 +5,8 @@
   },
   "build": {
     "distDir": "../public",
-    "devPath": "../public"
+    "devPath": "../public",
+    "withGlobalTauri": true
   },
   "tauri": {
     "bundle": {
