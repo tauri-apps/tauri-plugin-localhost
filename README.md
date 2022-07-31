@@ -25,7 +25,7 @@ portpicker = "0.1"
 Use in `src-tauri/src/main.rs`:
 
 ```rust
-use tauri::{window::WindowBuilder, WindowUrl};
+use tauri::{utils::config::AppUrl, window::WindowBuilder, WindowUrl};
 
 fn main() {
   let port = portpicker::pick_unused_port().expect("failed to find unused port");
