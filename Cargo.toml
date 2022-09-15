@@ -10,6 +10,6 @@ rust-version = "1.56"
 exclude = [ "/examples" ]
 
 [dependencies]
-tauri = "1.0"
+tauri = "1.1"
 serde_json = "1.0"
 tiny_http = "0.11"
