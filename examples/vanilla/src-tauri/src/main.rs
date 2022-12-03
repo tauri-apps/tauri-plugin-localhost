@@ -3,6 +3,7 @@
   windows_subsystem = "windows"
 )]
 
+use std::path::PathBuf;
 use tauri::{utils::config::AppUrl, window::WindowBuilder, WindowUrl};
 
 #[tauri::command]
@@ -24,9 +25,13 @@ fn main() {
     .invoke_handler(tauri::generate_handler![my_custom_command])
     .plugin(tauri_plugin_localhost::Builder::new(port).build())
     .setup(move |app| {
-      WindowBuilder::new(app, "main".to_string(), window_url)
-        .title("Localhost Example")
-        .build()?;
+      WindowBuilder::new(
+        app,
+        "main".to_string(),
+        WindowUrl::App(PathBuf::from("index.html?action=edit")),
+      )
+      .title("Localhost Example")
+      .build()?;
       Ok(())
     })
     .run(context)

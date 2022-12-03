@@ -4,6 +4,7 @@
 
 use std::collections::HashMap;
 
+use http::Uri;
 use tauri::{
   plugin::{Builder as PluginBuilder, TauriPlugin},
   Runtime,
@@ -62,8 +63,9 @@ impl Builder {
           let server =
             Server::http(&format!("localhost:{}", port)).expect("Unable to spawn server");
           for req in server.incoming_requests() {
+            let uri = req.url().parse::<Uri>().expect("Unable to parse url");
             #[allow(unused_mut)]
-            if let Some(mut asset) = asset_resolver.get(req.url().into()) {
+            if let Some(mut asset) = asset_resolver.get(uri.path().into()) {
               let request = Request {
                 url: req.url().into(),
               };
