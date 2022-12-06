@@ -31,9 +31,11 @@ impl Response {
   }
 }
 
+type OnRequest = Option<Box<dyn Fn(&Request, &mut Response) + Send + Sync>>;
+
 pub struct Builder {
   port: u16,
-  on_request: Option<Box<dyn Fn(&Request, &mut Response) + Send + Sync>>,
+  on_request: OnRequest,
 }
 
 impl Builder {
