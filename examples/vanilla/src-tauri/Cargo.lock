@@ -2848,8 +2848,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-localhost"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
+ "http",
  "serde_json",
  "tauri",
  "tiny_http",

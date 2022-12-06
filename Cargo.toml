@@ -13,3 +13,4 @@ exclude = [ "/examples" ]
 tauri = "1"
 serde_json = "1.0"
 tiny_http = "0.11"
+http = "0.2"

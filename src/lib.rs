@@ -4,6 +4,7 @@
 
 use std::collections::HashMap;
 
+use http::Uri;
 use tauri::{
   plugin::{Builder as PluginBuilder, TauriPlugin},
   Runtime,
@@ -30,9 +31,11 @@ impl Response {
   }
 }
 
+type OnRequest = Option<Box<dyn Fn(&Request, &mut Response) + Send + Sync>>;
+
 pub struct Builder {
   port: u16,
-  on_request: Option<Box<dyn Fn(&Request, &mut Response) + Send + Sync>>,
+  on_request: OnRequest,
 }
 
 impl Builder {
@@ -62,8 +65,14 @@ impl Builder {
           let server =
             Server::http(&format!("localhost:{}", port)).expect("Unable to spawn server");
           for req in server.incoming_requests() {
+            let path = req
+              .url()
+              .parse::<Uri>()
+              .map(|uri| uri.path().into())
+              .unwrap_or_else(|_| req.url().into());
+
             #[allow(unused_mut)]
-            if let Some(mut asset) = asset_resolver.get(req.url().into()) {
+            if let Some(mut asset) = asset_resolver.get(path) {
               let request = Request {
                 url: req.url().into(),
               };
