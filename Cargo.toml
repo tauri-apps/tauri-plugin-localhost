@@ -1,16 +1,19 @@
 [package]
 name = "tauri-plugin-localhost"
 version = "0.1.0"
-authors = [ "Tauri Programme within The Commons Conservancy" ]
-description = "A Tauri Plugin that allows usage of a localhost server instead of the custom protocol in production builds"
-license = "Apache-2.0 OR MIT"
-repository = "https://github.com/tauri-apps/tauri-plugin-localhost"
-edition = "2021"
-rust-version = "1.56"
-exclude = [ "/examples" ]
+description = "Expose your apps assets through a localhost server instead of the default custom protocol."
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tauri = "1"
-serde_json = "1.0"
+serde.workspace = true
+serde_json.workspace = true
+tauri.workspace = true
+log.workspace = true
+thiserror.workspace = true
 tiny_http = "0.11"
 http = "0.2"
